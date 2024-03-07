@@ -76,7 +76,6 @@ public partial class FuflowerBouquetManagementV4Context : DbContext
         {
             entity.HasKey(e => e.OrderId).HasName("PK__Order__C3905BAF66918AA5");
 
-            entity.Property(e => e.OrderId).ValueGeneratedNever();
             entity.Property(e => e.OrderStatus).IsFixedLength();
 
             entity.HasOne(d => d.Account).WithMany(p => p.Orders)
@@ -90,7 +89,9 @@ public partial class FuflowerBouquetManagementV4Context : DbContext
 
             entity.HasOne(d => d.FlowerBouquet).WithMany(p => p.OrderDetails).HasConstraintName("FK__OrderDeta__Flowe__31EC6D26");
 
-            entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails).HasConstraintName("FK__OrderDeta__Order__32E0915F");
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__OrderDeta__Order__32E0915F");
         });
 
         modelBuilder.Entity<Supplier>(entity =>

@@ -16,6 +16,7 @@ namespace WebAPI.Configurations
             services.AddScoped<IFlowerBouquetService, FlowerBouquetService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddFluentValidation();
         }

@@ -1,0 +1,69 @@
+
+
+CREATE TABLE FUFlowerBouquetManagementV4.dbo.Account (
+	AccountID int NOT NULL IDENTITY(1,1),
+	Email varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	Username varchar(180) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	City varchar(15) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Country varchar(15) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Password varchar(30) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Birthday date NULL,
+	AccountStatus tinyint DEFAULT 1 NULL,
+	Fullname varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Role] varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	CONSTRAINT PK__Customer__A4AE64B84B19B6D4 PRIMARY KEY (AccountID)
+);
+
+
+CREATE TABLE FUFlowerBouquetManagementV4.dbo.Category (
+	CategoryID int NOT NULL IDENTITY(1,1),
+	CategoryName varchar(40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	CategoryDescription nvarchar(150) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	CategoryNote nvarchar(150) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	CONSTRAINT PK__Category__19093A2BCF154F64 PRIMARY KEY (CategoryID)
+);
+
+CREATE TABLE FUFlowerBouquetManagementV4.dbo.Supplier (
+	SupplierID int NOT NULL IDENTITY(1,1),
+	SupplierName nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	SupplierAddress nvarchar(150) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	Telephone nchar(15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	CONSTRAINT PK_Supplier PRIMARY KEY (SupplierID)
+);
+
+CREATE TABLE FUFlowerBouquetManagementV4.dbo.FlowerBouquet (
+	FlowerBouquetID int NOT NULL IDENTITY(1,1),
+	CategoryID int NOT NULL,
+	FlowerBouquetName varchar(40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Description varchar(220) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	UnitPrice money NOT NULL,
+	UnitsInStock int NOT NULL,
+	FlowerBouquetStatus tinyint NULL,
+	SupplierID int NULL,
+	Morphology nvarchar(250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	CONSTRAINT PK__FlowerBo__A13913016CFABD6D PRIMARY KEY (FlowerBouquetID),
+	CONSTRAINT FK__FlowerBou__Categ__2F10007B FOREIGN KEY (CategoryID) REFERENCES FUFlowerBouquetManagementV4.dbo.Category(CategoryID) ON DELETE CASCADE,
+	CONSTRAINT FK__FlowerBou__Suppl__300424B4 FOREIGN KEY (SupplierID) REFERENCES FUFlowerBouquetManagementV4.dbo.Supplier(SupplierID) ON DELETE CASCADE
+);
+
+CREATE TABLE FUFlowerBouquetManagementV4.dbo.[Order] (
+	OrderID int NOT NULL IDENTITY(1,1),
+	AccountID int NULL,
+	OrderDate datetime NOT NULL,
+	ShippedDate datetime NULL,
+	Total money NULL,
+	OrderStatus nchar(10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	CONSTRAINT PK__Order__C3905BAF66918AA5 PRIMARY KEY (OrderID),
+	CONSTRAINT FK__Order__CustomerI__30F848ED FOREIGN KEY (AccountID) REFERENCES FUFlowerBouquetManagementV4.dbo.Account(AccountID) ON DELETE CASCADE
+);
+
+CREATE TABLE FUFlowerBouquetManagementV4.dbo.OrderDetail (
+	OrderID int NOT NULL,
+	FlowerBouquetID int NOT NULL,
+	UnitPrice money NOT NULL,
+	Quantity int NOT NULL,
+	Discount float NOT NULL,
+	CONSTRAINT PK__OrderDet__C983CA9F53E38433 PRIMARY KEY (OrderID,FlowerBouquetID),
+	CONSTRAINT FK__OrderDeta__Flowe__31EC6D26 FOREIGN KEY (FlowerBouquetID) REFERENCES FUFlowerBouquetManagementV4.dbo.FlowerBouquet(FlowerBouquetID) ON DELETE CASCADE,
+	CONSTRAINT FK__OrderDeta__Order__32E0915F FOREIGN KEY (OrderID) REFERENCES FUFlowerBouquetManagementV4.dbo.[Order](OrderID)
+);

@@ -52,7 +52,8 @@ namespace Service
                 new Claim(ClaimTypes.Email, userInfo.Email),
                 new Claim(ClaimTypes.Name, userInfo.Username),
                 new Claim("fullname", userInfo.Fullname),
-                new Claim(ClaimTypes.Role, userInfo.Role)
+                new Claim(ClaimTypes.Role, userInfo.Role),
+                new Claim("accountID", userInfo.AccountId.ToString())
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
