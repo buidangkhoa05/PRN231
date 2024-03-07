@@ -24,14 +24,14 @@ namespace Repository.Common
 
         public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _dbSet.WhereWithExist(predicate)
+            return await _dbSet.Where(predicate)
                                 .FirstOrDefaultAsync()
                                 .ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _dbSet.WhereWithExist(predicate)
+            return await _dbSet.Where(predicate)
                         .ToListAsync()
                         .ConfigureAwait(false);
         }
@@ -39,7 +39,7 @@ namespace Repository.Common
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _dbSet.WhereStringWithExist(string.Empty)
+            return await _dbSet.AsNoTracking()
                                 .ToListAsync()
                                 .ConfigureAwait(false);
         }
@@ -47,7 +47,7 @@ namespace Repository.Common
         public async Task<IEnumerable<TResult>> GetAllAsync<TResult>()
             where TResult : class
         {
-            return await _dbSet.WhereStringWithExist(string.Empty)
+            return await _dbSet.AsNoTracking()
                                 .SelectWithField<TEntity, TResult>()
                                 .ToListAsync()
                                 .ConfigureAwait(false);

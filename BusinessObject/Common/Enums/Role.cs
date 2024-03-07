@@ -4,6 +4,6 @@
     {
         Admin,
         Staff,
-        Uset
+        User
     }
 }
