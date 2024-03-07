@@ -18,6 +18,8 @@ namespace Repository
             return await _dbSet.AsNoTracking()
                                 .Where(a => a.Role != Role.Admin.ToString())
                                 .AddOrderByString(orderBy)
+                                .Include(a => a.Orders)
+                                    .ThenInclude(a => a.OrderDetails)
                                 .ToPagedListAsync(pagingQuery);
         }
 

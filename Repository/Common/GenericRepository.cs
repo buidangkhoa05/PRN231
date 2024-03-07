@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.Helper;
 using System.Data;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 
 namespace Repository.Common
@@ -17,7 +18,7 @@ namespace Repository.Common
             _dbSet = context.Set<TEntity>();
         }
 
-        public async Task<TEntity?> FindAsync(int entityId)
+        public virtual async Task<TEntity?> FindAsync(int entityId)
         {
             return await _dbSet.FindAsync(entityId);
         }
@@ -37,7 +38,7 @@ namespace Repository.Common
         }
 
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _dbSet.AsNoTracking()
                                 .ToListAsync()
@@ -58,7 +59,7 @@ namespace Repository.Common
             string stringIds = string.Join(",", ids);
             return await _dbSet
                 .AsNoTracking()
-                .WhereStringWithExist($"e.{EFRepositoryHelpers.GetPrimaryKeyName<TEntity>()} IN ({stringIds})")
+                .Where($"e => e.{EFRepositoryHelpers.GetPrimaryKeyName<TEntity>()} IN ({stringIds})")
                 .AnyAsync();
         }
 

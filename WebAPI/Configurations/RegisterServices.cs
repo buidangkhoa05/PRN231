@@ -13,6 +13,9 @@ namespace WebAPI.Configurations
             services.AddScoped(typeof(AuthensMidlleware));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IFlowerBouquetService, FlowerBouquetService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ISupplierService, SupplierService>();
 
             services.AddFluentValidation();
         }
