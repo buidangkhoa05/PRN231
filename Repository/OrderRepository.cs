@@ -3,6 +3,7 @@ using BusinessObject.Common.PagedList;
 using BusinessObject.Dto;
 using Microsoft.EntityFrameworkCore;
 using Repository.Common;
+using Repository.Helper;
 using System.Linq.Dynamic.Core;
 
 namespace Repository
@@ -15,7 +16,12 @@ namespace Repository
 
         public override Task<IPagedList<Order>> SearchAsync(string keySearch, PagingQuery pagingQuery, string orderBy)
         {
-            throw new NotImplementedException();
+            return _dbContext.Set<Order>()
+                .Where(x => x.OrderId.ToString().Contains(keySearch))
+                .Include(x => x.Account)
+                .Include(x => x.OrderDetails)
+                .AddOrderByString(orderBy)
+                .ToPagedListAsync(pagingQuery);
         }
 
         public override Task<IPagedList<TResult>> SearchAsync<TResult>(string keySearch, PagingQuery pagingQuery, string orderBy)

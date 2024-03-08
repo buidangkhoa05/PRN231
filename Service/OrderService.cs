@@ -97,7 +97,20 @@ namespace Service
                   }).ToArray();
         }
 
+        public async Task<PagingApiResponse<Order>> SearchOrder(SearchBaseReq searchReq)
+        {
+            try
+            {
+                var result = await _uOW.Resolve<Order, IOrderRepository>()
+                    .SearchAsync(searchReq.KeySearch, searchReq.PagingQuery, searchReq.OrderBy);
 
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return PagingFailed<Order>(ex.Message);
+            }
+        }
     }
 
 }
