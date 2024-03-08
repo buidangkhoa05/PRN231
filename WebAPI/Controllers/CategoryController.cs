@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Common;
 using BusinessObject.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service;
@@ -8,6 +9,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Staff")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

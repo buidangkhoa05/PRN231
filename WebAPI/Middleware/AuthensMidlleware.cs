@@ -15,7 +15,7 @@ namespace WebAPI.Middleware
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
             if (!string.IsNullOrEmpty(token))
             {
                 var claims = await _accountService.GetAuthenticatedAccount(token);

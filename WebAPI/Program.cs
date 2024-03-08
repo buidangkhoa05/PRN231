@@ -21,7 +21,7 @@ namespace WebAPI
           .Build();
 
             builder.Configuration.SettingsBinding();
-
+            builder.Services.AddCors();
             // Add services to the container.
 
             builder.Services
@@ -61,7 +61,10 @@ namespace WebAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-
+            app.UseCors(options => options
+                           .AllowAnyOrigin()
+                                          .AllowAnyMethod()
+                                                         .AllowAnyHeader());
             app.MapControllers();
 
             app.Run();
