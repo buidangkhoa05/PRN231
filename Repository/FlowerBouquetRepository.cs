@@ -27,9 +27,15 @@ namespace Repository
                  .ToPagedListAsync(pagingQuery);
         }
 
-        public override Task<IPagedList<TResult>> SearchAsync<TResult>(string keySearch, PagingQuery pagingQuery, string orderBy)
+        public override async Task<IPagedList<TResult>> SearchAsync<TResult>(string keySearch, PagingQuery pagingQuery, string orderBy)
         {
-            throw new NotImplementedException();
+            return await _dbSet.AsNoTracking()
+                .Where(f => string.IsNullOrEmpty(keySearch) || f.FlowerBouquetName.Contains(keySearch))
+                .AddOrderByString(orderBy)
+                .Include(f => f.Category)
+                .Include(f => f.Supplier)
+                .SelectWithField<FlowerBouquet, TResult>()
+                .ToPagedListAsync(pagingQuery);
         }
     }
 }

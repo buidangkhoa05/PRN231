@@ -47,13 +47,6 @@ namespace Service
                     await _uOW.Resolve<Order, IOrderRepository>().CreateAsync(order);
                     await _uOW.SaveChangesAsync();
 
-                    //for (int i = 0; i < flowerBouquet.Count(); i++)
-                    //{
-                    //    var orderDetail = req.OrderDetails.FirstOrDefault(x => x.FlowerBouquetId == flowerBouquet[i].FlowerBouquetId);
-
-                    //    flowerBouquet[i].UnitsInStock -= orderDetail.Quantity;
-                    //}
-
                     flowerBouquet = CalculateUnitInStock(req.OrderDetails, flowerBouquet);
 
                     await _uOW.Resolve<FlowerBouquet, IFlowerBouquetRepository>().UpdateAsync(flowerBouquet);
@@ -73,7 +66,7 @@ namespace Service
         {
             return flowers
                  .Join(orderDetails, x => x.FlowerBouquetId, y => y.FlowerBouquetId,
-                 (x, y) => x.UnitsInStock - y.Quantity > 0)
+                    (x, y) => x.UnitsInStock - y.Quantity > 0)
                  .All(x => x == true);
         }
 
@@ -81,7 +74,7 @@ namespace Service
         {
             return flowers
                  .Join(orderDetails, x => x.FlowerBouquetId, y => y.FlowerBouquetId,
-                 (x, y) => x.UnitPrice * y.Quantity - (decimal)y.Discount)
+                    (x, y) => x.UnitPrice * y.Quantity - (decimal)y.Discount)
                  .Sum();
         }
 
@@ -97,18 +90,35 @@ namespace Service
                   }).ToArray();
         }
 
-        public async Task<PagingApiResponse<Order>> SearchOrder(SearchBaseReq searchReq)
+        public async Task<PagingApiResponse<OrderResponse>> SearchOrderByAccountID(int userID, SearchBaseReq searchReq)
         {
             try
             {
+                searchReq.KeySearch = userID.ToString();
+
                 var result = await _uOW.Resolve<Order, IOrderRepository>()
-                    .SearchAsync(searchReq.KeySearch, searchReq.PagingQuery, searchReq.OrderBy);
+                    .SearchAsync<OrderResponse>(searchReq.KeySearch, searchReq.PagingQuery, searchReq.OrderBy);
 
                 return Success(result);
             }
             catch (Exception ex)
             {
-                return PagingFailed<Order>(ex.Message);
+                return PagingFailed<OrderResponse>(ex.Message);
+            }
+        }
+
+        public async Task<PagingApiResponse<OrderResponse>> SearchOrder(SearchBaseReq searchReq)
+        {
+            try
+            {
+                var result = await _uOW.Resolve<Order, IOrderRepository>()
+                    .SearchAsync<OrderResponse>(searchReq.KeySearch, searchReq.PagingQuery, searchReq.OrderBy);
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return PagingFailed<OrderResponse>(ex.Message);
             }
         }
     }

@@ -11,8 +11,8 @@ namespace Service
 {
     public interface IFlowerBouquetService
     {
-        Task<ApiResponse<FlowerBouquet>> GetFlowerBouquetById(int id);
-        Task<PagingApiResponse<FlowerBouquet>> SearchFlowerBouquet(SearchBaseReq req);
+        Task<ApiResponse<FlowerBouquetResponse>> GetFlowerBouquetById(int id);
+        Task<PagingApiResponse<FlowerBouquetResponse>> SearchFlowerBouquet(SearchBaseReq req);
         Task<ApiResponse<bool>> CreateFlowerBouquet(FlowerBouquetRequest req);
         Task<ApiResponse<bool>> UpdateFlowerBouquet(int flowerBouquetID, FlowerBouquetRequest req);
         Task<ApiResponse<bool>> DeleteFlowerBouquet(int flowerBouquetID);

@@ -18,28 +18,35 @@ namespace Service
         {
         }
 
-        public async Task<ApiResponse<FlowerBouquet>> GetFlowerBouquetById(int id)
+        public async Task<ApiResponse<FlowerBouquetResponse>> GetFlowerBouquetById(int id)
         {
-            var flowerBouquet = await _uOW.Resolve<FlowerBouquet>().FindAsync(f => f.FlowerBouquetId == id);
-            if (flowerBouquet == null)
+            try
             {
-                return Failed<FlowerBouquet>("Flower bouquet not found", System.Net.HttpStatusCode.NotFound);
+                var flowerBouquet = await _uOW.Resolve<FlowerBouquet>().FindAsync(f => f.FlowerBouquetId == id);
+                if (flowerBouquet == null)
+                {
+                    return Failed<FlowerBouquetResponse>("Flower bouquet not found", System.Net.HttpStatusCode.NotFound);
+                }
+                return Success(flowerBouquet.Adapt<FlowerBouquetResponse>());
             }
-            return Success(flowerBouquet);
+            catch (Exception ex)
+            {
+                return Failed<FlowerBouquetResponse>(ex.Message);
+            }
         }
 
-        public async Task<PagingApiResponse<FlowerBouquet>> SearchFlowerBouquet(SearchBaseReq req)
+        public async Task<PagingApiResponse<FlowerBouquetResponse>> SearchFlowerBouquet(SearchBaseReq req)
         {
             try
             {
                 var result = await _uOW.Resolve<FlowerBouquet, IFlowerBouquetRepository>()
-                                .SearchAsync(req.KeySearch, req.PagingQuery, req.OrderBy);
+                                .SearchAsync<FlowerBouquetResponse>(req.KeySearch, req.PagingQuery, req.OrderBy);
 
                 return Success(result);
             }
             catch (Exception ex)
             {
-                return PagingFailed<FlowerBouquet>(ex.Message);
+                return PagingFailed<FlowerBouquetResponse>(ex.Message);
             }
         }
 
@@ -78,7 +85,7 @@ namespace Service
 
                 var flowerBouquet = await _uOW.Resolve<FlowerBouquet>().FindAsync(flowerBouquetID);
 
-                if(flowerBouquet == null)
+                if (flowerBouquet == null)
                     return Failed<bool>("Flower bouquet not found", System.Net.HttpStatusCode.NotFound);
 
                 req.Adapt(flowerBouquet);

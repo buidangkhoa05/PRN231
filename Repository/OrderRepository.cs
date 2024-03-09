@@ -24,9 +24,16 @@ namespace Repository
                 .ToPagedListAsync(pagingQuery);
         }
 
-        public override Task<IPagedList<TResult>> SearchAsync<TResult>(string keySearch, PagingQuery pagingQuery, string orderBy)
+        public override async Task<IPagedList<TResult>> SearchAsync<TResult>(string keySearch, PagingQuery pagingQuery, string orderBy)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<Order>()
+               .Where(x => string.IsNullOrEmpty(keySearch) || x.AccountId.ToString().Contains(keySearch))
+               .Include(x => x.Account)
+               .Include(x => x.OrderDetails)
+                    .ThenInclude(x => x.FlowerBouquet)
+               .AddOrderByString(orderBy)
+               .SelectWithField<Order, TResult>()
+               .ToPagedListAsync(pagingQuery);
         }
 
         public async Task<decimal> TotalPriceOfOrder(IEnumerable<OrderDetailRequest> orderDetails)

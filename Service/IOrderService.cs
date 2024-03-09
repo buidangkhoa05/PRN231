@@ -12,6 +12,7 @@ namespace Service
     public interface IOrderService
     {
         Task<ApiResponse<bool>> CreateOrder(int createdByID, OrderRequest req);
-        Task<PagingApiResponse<Order>> SearchOrder(SearchBaseReq searchReq);
+        Task<PagingApiResponse<OrderResponse>> SearchOrder(SearchBaseReq searchReq);
+        Task<PagingApiResponse<OrderResponse>> SearchOrderByAccountID(int userID, SearchBaseReq searchReq);
     }
 }

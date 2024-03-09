@@ -86,35 +86,35 @@ namespace Service
             return jwtToken.Claims;
         }
 
-        public async Task<PagingApiResponse<Account>> Search(SearchBaseReq req)
+        public async Task<PagingApiResponse<AccountResponse>> Search(SearchBaseReq req)
         {
             try
             {
                 var result = await _uOW.Resolve<Account, IAccountRepository>()
-               .SearchAsync(req.KeySearch, req.PagingQuery, req.OrderBy);
+               .SearchAsync<AccountResponse>(req.KeySearch, req.PagingQuery, req.OrderBy);
 
                 return Success(result);
             }
             catch (Exception ex)
             {
-                return PagingFailed<Account>(ex.Message);
+                return PagingFailed<AccountResponse>(ex.Message);
             }
         }
 
-        public async Task<ApiResponse<Account>> GetAccount(int accountID)
+        public async Task<ApiResponse<AccountResponse>> GetAccount(int accountID)
         {
             try
             {
                 var account = await _uOW.Resolve<Account>().FindAsync(accountID);
 
                 if (account == null)
-                    return Failed<Account>("Account not found", HttpStatusCode.NotFound);
+                    return Failed<AccountResponse>("Account not found", HttpStatusCode.NotFound);
 
-                return Success(account);
+                return Success(account.Adapt<AccountResponse>());
             }
             catch (Exception ex)
             {
-                return Failed<Account>(ex.Message);
+                return Failed<AccountResponse>(ex.Message);
             }
         }
 

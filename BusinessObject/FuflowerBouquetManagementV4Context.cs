@@ -48,22 +48,17 @@ public partial class FuflowerBouquetManagementV4Context : DbContext
         {
             entity.HasKey(e => e.AccountId).HasName("PK__Customer__A4AE64B84B19B6D4");
 
-            entity.Property(e => e.AccountId).ValueGeneratedNever();
             entity.Property(e => e.AccountStatus).HasDefaultValue((byte)1);
         });
 
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.CategoryId).HasName("PK__Category__19093A2BCF154F64");
-
-            entity.Property(e => e.CategoryId).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<FlowerBouquet>(entity =>
         {
             entity.HasKey(e => e.FlowerBouquetId).HasName("PK__FlowerBo__A13913016CFABD6D");
-
-            entity.Property(e => e.FlowerBouquetId).ValueGeneratedNever();
 
             entity.HasOne(d => d.Category).WithMany(p => p.FlowerBouquets).HasConstraintName("FK__FlowerBou__Categ__2F10007B");
 

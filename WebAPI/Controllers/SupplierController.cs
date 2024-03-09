@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Common;
 using BusinessObject.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service;
@@ -17,6 +18,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Search([FromQuery] SearchBaseReq req)
         {
             var result = await _supplierService.Search(req);
@@ -24,6 +26,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Create([FromBody] SupplierRequest req)
         {
             var result = await _supplierService.CreateSupplier(req);
@@ -31,6 +34,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{supplierID}")]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Update(int supplierID, [FromBody] SupplierRequest req)
         {
             var result = await _supplierService.UpdateSupplier(supplierID, req);
@@ -38,6 +42,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{supplierID}")]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Delete(int supplierID)
         {
             var result = await _supplierService.DeleteSupplier(supplierID);

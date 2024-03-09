@@ -57,7 +57,7 @@ namespace Service
 
                 createReq.Adapt(category);
 
-                await _uOW.Resolve<Category>().CreateAsync(category);
+                await _uOW.Resolve<Category>().UpdateAsync(category);
                 await _uOW.SaveChangesAsync();
 
                 return Success(true);
