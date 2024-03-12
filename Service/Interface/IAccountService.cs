@@ -3,7 +3,7 @@ using BusinessObject.Common;
 using BusinessObject.Dto;
 using System.Security.Claims;
 
-namespace Service
+namespace Service.Interface
 {
     public interface IAccountService
     {

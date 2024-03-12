@@ -2,7 +2,7 @@
 using BusinessObject.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Service;
+using Service.Interface;
 
 namespace WebAPI.Controllers
 {

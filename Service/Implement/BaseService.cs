@@ -3,7 +3,7 @@ using BusinessObject.Common.PagedList;
 using Repository.Common;
 using System.Net;
 
-namespace Service
+namespace Service.Implement
 {
     public class BaseService
     {

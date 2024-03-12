@@ -1,4 +1,4 @@
-﻿using Service;
+﻿using Service.Interface;
 using System.Security.Claims;
 
 namespace WebAPI.Middleware

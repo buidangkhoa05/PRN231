@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObject.Dto;
 
-namespace Service
+namespace Service.Interface
 {
     public interface ICategoryService
     {

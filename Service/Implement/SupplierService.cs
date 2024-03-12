@@ -3,13 +3,14 @@ using BusinessObject.Common;
 using BusinessObject.Dto;
 using Mapster;
 using Repository.Common;
+using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Service.Implement
 {
     public class SupplierService : BaseService, ISupplierService
     {
@@ -53,7 +54,7 @@ namespace Service
             {
                 var supplier = await _uOW.Resolve<Supplier>().FindAsync(supplierID);
 
-                if(supplier == null)
+                if (supplier == null)
                     return Failed<bool>("Supplier not found");
 
                 request.Adapt(supplier);

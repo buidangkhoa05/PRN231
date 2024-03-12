@@ -5,13 +5,14 @@ using Mapster;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Repository;
 using Repository.Common;
+using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Service.Implement
 {
     public class OrderService : BaseService, IOrderService
     {

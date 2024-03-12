@@ -1,5 +1,6 @@
 ﻿using Repository.Common;
-using Service;
+using Service.Implement;
+using Service.Interface;
 using System.Runtime.CompilerServices;
 using WebAPI.Middleware;
 

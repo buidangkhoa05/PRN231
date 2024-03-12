@@ -4,18 +4,17 @@ using BusinessObject.Dto;
 using Mapster;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
 using Repository;
 using Repository.Common;
+using Service.Interface;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq.Dynamic.Core.Tokenizer;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
 
-namespace Service
+namespace Service.Implement
 {
-    public class AccountService : BaseService, IAccountService
+	public class AccountService : BaseService, IAccountService
     {
         protected readonly IConfiguration _config;
         public AccountService(IUnitOfWork unitOfWork, IConfiguration config) : base(unitOfWork)
