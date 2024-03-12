@@ -3,18 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{FDD6DC6E-B0AB-4F69-8BEB-93FA7FF7BC62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{FDD6DC6E-B0AB-4F69-8BEB-93FA7FF7BC62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{900CB906-28DB-46B7-AEFE-68C9BE78DABB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{900CB906-28DB-46B7-AEFE-68C9BE78DABB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{A8295849-E07F-42BF-8AFD-3F778BBB2550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{A8295849-E07F-42BF-8AFD-3F778BBB2550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{12410F2F-0459-470E-ACF1-6A7BF3BFA5F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{12410F2F-0459-470E-ACF1-6A7BF3BFA5F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Note", "Note", "{7D7087D4-8060-41F2-9E82-DD183722618C}"
 	ProjectSection(SolutionItems) = preProject
 		DB.txt = DB.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{63E1C398-9C16-4744-97D7-A86960031744}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{12410F2F-0459-470E-ACF1-6A7BF3BFA5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12410F2F-0459-470E-ACF1-6A7BF3BFA5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12410F2F-0459-470E-ACF1-6A7BF3BFA5F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63E1C398-9C16-4744-97D7-A86960031744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63E1C398-9C16-4744-97D7-A86960031744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63E1C398-9C16-4744-97D7-A86960031744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63E1C398-9C16-4744-97D7-A86960031744}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
