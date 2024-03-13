@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Note", "Note", "{7D7087D4-8
 		DB.txt = DB.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{63E1C398-9C16-4744-97D7-A86960031744}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{63E1C398-9C16-4744-97D7-A86960031744}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

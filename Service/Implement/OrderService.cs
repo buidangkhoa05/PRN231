@@ -34,13 +34,21 @@ namespace Service.Implement
                 if (CheckQuantity(req.OrderDetails, flowerBouquet) == false)
                     return Failed<bool>("Quantity is not enough", System.Net.HttpStatusCode.BadRequest);
 
+                var orderDetail = req.OrderDetails.Adapt<IEnumerable<OrderDetail>>().ToList();
+                orderDetail = orderDetail.Select(x =>
+                {
+                    var flower = flowerBouquet.FirstOrDefault(y => y.FlowerBouquetId == x.FlowerBouquetId);
+                    x.UnitPrice = flower.UnitPrice;
+                    return x;
+                }).ToList();
+
                 await _uOW.BeginTransactionAsync();
                 {
                     var order = new Order
                     {
                         OrderDate = DateTime.Now,
                         Total = TotalPrice(req.OrderDetails, flowerBouquet),
-                        OrderDetails = req.OrderDetails.Adapt<IEnumerable<OrderDetail>>().ToList(),
+                        OrderDetails = orderDetail,
                         AccountId = createdByID,
                         ShippedDate = null
                     };

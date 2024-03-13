@@ -18,11 +18,14 @@ namespace WebApp
 			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
 				{
-					options.LoginPath = "/login";
+					options.LoginPath = "/authen/login";
 					options.LogoutPath = "/logout";
 				});
 
-			builder.Services.AddSession();
+			builder.Services.AddSession(cfg =>
+			{
+				cfg.Cookie.Name = "Cart";
+			});
 
 			var app = builder.Build();
 

@@ -1,0 +1,23 @@
+﻿@page
+@model WebApp.Pages.Authen.LoginModel
+@{
+    Layout = "_LayoutEmpty";
+    ViewData["Title"] = "Login Page";
+}
+
+<form class="w-50" method="post">
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <input asp-for="Username" type="text" id="username" name="username" class="form-control"/>
+        <label class="form-label" for="username">Username</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+        <input asp-for="Password" type="password" id="password" name="password" class="form-control" />
+        <label class="form-label" for="password">Password</label>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+</form>

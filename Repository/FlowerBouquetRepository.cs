@@ -1,6 +1,7 @@
 ﻿using BusinessObject;
 using BusinessObject.Common.PagedList;
 using BusinessObject.Dto;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Common;
@@ -17,6 +18,23 @@ namespace Repository
     {
         public FlowerBouquetRepository(DbContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<FlowerTopSellingResponse>> GetTopSelling()
+        {
+            var result = await _dbSet.AsNoTracking()
+                .Include(f => f.OrderDetails)
+                .Select(f => new FlowerTopSellingResponse
+                {
+                    FlowerBouquetId = f.FlowerBouquetId,
+                    CategoryName = f.Category.CategoryName,
+                    FlowerBouquetName = f.FlowerBouquetName,
+                    TotalPrice = f.OrderDetails.Sum(od => od.UnitPrice * od.Quantity)
+                })
+                .OrderByDescending(f => f.TotalPrice)
+                .Take(3)
+                .ToListAsync();
+            return result;
         }
 
         public override async Task<IPagedList<FlowerBouquet>> SearchAsync(string keySearch, PagingQuery pagingQuery, string orderBy)

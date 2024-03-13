@@ -13,5 +13,6 @@ namespace Repository
     public interface IFlowerBouquetRepository : IGenericRepository<FlowerBouquet>
     {
         Task<IPagedList<TResult>> SearchAsync<TResult>(SearchFlowerRequest req) where TResult : class;
+        Task<IEnumerable<FlowerTopSellingResponse>> GetTopSelling();
     }
 }

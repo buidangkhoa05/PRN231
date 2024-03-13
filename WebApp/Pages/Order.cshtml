@@ -1,0 +1,49 @@
+﻿@page
+@model WebApp.Pages.OrderModel
+@{
+    Layout = "_LayoutCheckout";
+}
+<div id="accordion">
+    @foreach (var order in Model.Orders)
+    {
+        <div class="card">
+            <div class="card-header" id="heading-@order.OrderId">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-@order.OrderId" aria-expanded="false" aria-controls="collapse-@order.OrderId">
+                        Order Id: @order.OrderId - Order Date: @order.OrderDate - Total: @order.Total
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapse-@order.OrderId" class="collapse" aria-labelledby="heading-@order.OrderId" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">FlowerBouquetId</th>
+                                <th scope="col">FlowerBouquetName</th>
+                                <th scope="col">UnitPrice</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var orderDetail in order.OrderDetails)
+                            {
+                                var total = orderDetail.Quantity * orderDetail.UnitPrice;
+                                <tr>
+                                    <td scope="row">@orderDetail.FlowerBouquetId</td>
+                                    <td scope="col">@orderDetail.FlowerBouquet.FlowerBouquetName</td>
+                                    <td scope="col">@orderDetail.UnitPrice</td>
+                                    <td scope="col">@orderDetail.Quantity</td>
+                                    <td scope="col">@total</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

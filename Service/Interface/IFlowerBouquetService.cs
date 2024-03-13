@@ -13,6 +13,7 @@ namespace Service.Interface
     {
         Task<ApiResponse<FlowerBouquetResponse>> GetFlowerBouquetById(int id);
         Task<PagingApiResponse<FlowerBouquetResponse>> SearchFlowerBouquet(SearchFlowerRequest req);
+        Task<ApiResponse<IEnumerable<FlowerTopSellingResponse>>> GetTopSelling();
         Task<ApiResponse<bool>> CreateFlowerBouquet(FlowerBouquetRequest req);
         Task<ApiResponse<bool>> UpdateFlowerBouquet(int flowerBouquetID, FlowerBouquetRequest req);
         Task<ApiResponse<bool>> DeleteFlowerBouquet(int flowerBouquetID);

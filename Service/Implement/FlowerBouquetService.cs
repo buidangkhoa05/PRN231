@@ -51,6 +51,19 @@ namespace Service.Implement
             }
         }
 
+        public async Task<ApiResponse<IEnumerable<FlowerTopSellingResponse>>> GetTopSelling()
+        {
+            try
+            {
+                var topSellingFlowers = await _uOW.Resolve<FlowerBouquet, IFlowerBouquetRepository>().GetTopSelling();
+                return Success(topSellingFlowers);
+            }
+            catch (Exception ex)
+            {
+                return Failed<IEnumerable<FlowerTopSellingResponse>>(ex.Message);
+            }
+        }
+
         public async Task<ApiResponse<bool>> CreateFlowerBouquet(FlowerBouquetRequest req)
         {
             try

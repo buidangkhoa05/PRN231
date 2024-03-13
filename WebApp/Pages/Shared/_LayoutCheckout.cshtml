@@ -22,7 +22,6 @@
     <link type="text/css" rel="stylesheet" href="~/css/style.css" />
 </head>
 <body>
-    <!-- HEADER -->
     <header>
         <!-- TOP HEADER -->
         <div id="top-header">
@@ -50,25 +49,6 @@
                         </div>
                     </div>
                     <!-- /LOGO -->
-                    <!-- SEARCH BAR -->
-                    <div class="col-md-6">
-                        <div class="header-search">
-                            <form action="Index" method="get">
-                                <select class="input-select" name="selectedCategory">
-                                    @{
-                                        <option value="">All Categories</option>
-                                        foreach (var category in Model.Categories)
-                                        {
-                                            <option value="@category.CategoryId">@category.CategoryName</option>
-                                        }
-                                    }
-                                </select>
-                                <input class="input" placeholder="Search here" name="keySearch" style="width: 260px !important;">
-                                <button type="submit" class="search-btn">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /SEARCH BAR -->
                     <!-- ACCOUNT -->
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
@@ -102,7 +82,14 @@
                                             <h5>SUBTOTAL: @Model.TotalPrice</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="/Checkout">BUY  <i class="fa fa-arrow-circle-right"></i></a>
+                                            @if (@Model.TotalPrice > 0)
+                                            {
+                                                <a href="/Checkout">BUY  <i class="fa fa-arrow-circle-right"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="#">BUY  <i class="fa fa-arrow-circle-right"></i></a>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +113,7 @@
         </div>
         <!-- /MAIN HEADER -->
     </header>
-    <!-- HEADER -->
+
     <!-- NAVIGATION -->
     <nav id="navigation">
         <!-- container -->

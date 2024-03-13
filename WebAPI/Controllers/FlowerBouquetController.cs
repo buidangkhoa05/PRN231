@@ -40,6 +40,13 @@ namespace WebAPI.Controllers
             return StatusCode((int)result.StatusCode, result);
         }
 
+        [HttpGet("top-selling")]
+        public async Task<IActionResult> GetTopSelling()
+        {
+            var result = await _flowerBouquetService.GetTopSelling();
+            return StatusCode((int)result.StatusCode, result);
+        }
+
         /// <summary>
         /// Staff can create new flower bouquet
         /// </summary>
