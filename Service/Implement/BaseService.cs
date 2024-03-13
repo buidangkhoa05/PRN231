@@ -29,7 +29,7 @@ namespace Service.Implement
             {
                 StatusCode = HttpStatusCode.OK,
                 Message = message,
-                Data = new PagingResponse<T>
+                PagingData = new PagingResponse<T>
                 {
                     Data = data,
                     CurrentPage = data.CurrentPage,

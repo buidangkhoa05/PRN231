@@ -1,6 +1,8 @@
 ﻿using BusinessObject;
 using BusinessObject.Common.PagedList;
+using BusinessObject.Dto;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Repository.Common;
 using Repository.Helper;
 using System;
@@ -36,6 +38,19 @@ namespace Repository
                 .Include(f => f.Supplier)
                 .SelectWithField<FlowerBouquet, TResult>()
                 .ToPagedListAsync(pagingQuery);
+        }
+
+        public async Task<IPagedList<TResult>> SearchAsync<TResult>(SearchFlowerRequest req) where TResult : class
+        {
+            return await _dbSet.AsNoTracking()
+                .Where(f => (string.IsNullOrEmpty(req.KeySearch) || f.FlowerBouquetName.Contains(req.KeySearch))
+                            && (req.CategoryId == null || req.CategoryId == f.CategoryId)
+                )
+                .AddOrderByString(req.OrderBy)
+                .Include(f => f.Category)
+                .Include(f => f.Supplier)
+                .SelectWithField<FlowerBouquet, TResult>()
+                .ToPagedListAsync(req.PagingQuery);
         }
     }
 }

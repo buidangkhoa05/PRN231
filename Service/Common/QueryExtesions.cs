@@ -35,6 +35,9 @@ namespace Service.Common
 			List<string> list = new List<string>();
 			foreach (var item in dict)
 			{
+				if(string.IsNullOrEmpty(item.Value))
+					continue;
+
 				list.Add(item.Key + "=" + item.Value);
 			}
 

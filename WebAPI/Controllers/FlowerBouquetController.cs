@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Search([FromQuery] SearchBaseReq req)
+        public async Task<IActionResult> Search([FromQuery] SearchFlowerRequest req)
         {
             var result = await _flowerBouquetService.SearchFlowerBouquet(req);
             return StatusCode((int)result.StatusCode, result);

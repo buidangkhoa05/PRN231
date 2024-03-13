@@ -52,23 +52,6 @@
 			<!-- /ASIDE -->
 			<!-- STORE -->
 			<div id="store" class="col-md-9">
-				<!-- store top filter -->
-				<div class="store-filter clearfix">
-					<div class="store-sort">
-						<label>
-							Show:
-							<select class="input-select">
-								@{
-									foreach (var category in Model.Categories)
-									{
-										<option value="@category.CategoryId">@category.CategoryName</option>
-									}
-								}
-							</select>
-						</label>
-					</div>
-				</div>
-				<!-- /store top filter -->
 				<!-- store products -->
 				<div class="row">
 					<!-- product -->

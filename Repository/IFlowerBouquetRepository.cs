@@ -1,4 +1,6 @@
 ﻿using BusinessObject;
+using BusinessObject.Common.PagedList;
+using BusinessObject.Dto;
 using Repository.Common;
 using System;
 using System.Collections.Generic;
@@ -10,5 +12,6 @@ namespace Repository
 {
     public interface IFlowerBouquetRepository : IGenericRepository<FlowerBouquet>
     {
+        Task<IPagedList<TResult>> SearchAsync<TResult>(SearchFlowerRequest req) where TResult : class;
     }
 }

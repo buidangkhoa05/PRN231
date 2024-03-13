@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Service.Common;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace Service.ApiHelpers
 
 		private bool _disposedValue = false;
 
-		public ApiHelper(HttpClient client, ILogger logger)
+		public ApiHelper(HttpClient client)
 		{
 			_client = client;
 			//_logger = logger;
@@ -81,9 +82,9 @@ namespace Service.ApiHelpers
 		private async Task<HttpRequestMessage> GetHttpRequestMessage(HttpMethod method, string url)
 		{
 			//Init();
-			
+
 			_client.DefaultRequestHeaders.Clear();
-			//_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constant.token);
 			_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 			var request = new HttpRequestMessage(method, url);
@@ -101,18 +102,20 @@ namespace Service.ApiHelpers
 			{
 				try
 				{
-					if (string.IsNullOrEmpty(result.Message))
+					if (response.StatusCode == HttpStatusCode.OK)
 					{
-						result.Data = await GetResponse<T>(response);
+						var data = await GetResponse<T>(response);
+						result.Data = data;
 					}
 
+					result.Message = response.ReasonPhrase;
+					result.StatusCode = response.StatusCode;
 				}
 				catch (Exception ex)
 				{
 					return null;
 				}
 			}
-
 			return result;
 		}
 

@@ -13,6 +13,6 @@ namespace BusinessObject.Common
     {
         public HttpStatusCode StatusCode { get; set; }
         public string? Message { get; set; } = null;
-        public PagingResponse<T>? Data { get; set; } = default;
+        public PagingResponse<T>? PagingData { get; set; } = default;
     }
 }

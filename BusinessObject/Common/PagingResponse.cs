@@ -10,6 +10,6 @@ namespace BusinessObject.Common
         public int TotalCount { get; set; }
         public bool HasPrevious => CurrentPage > 1;
         public bool HasNext => CurrentPage < TotalPages;
-        public IPagedList<T> Data { get; set; } = default;
+        public IList<T> Data { get; set; } = default;
     }
 }

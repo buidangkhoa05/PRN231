@@ -36,12 +36,12 @@ namespace Service.Implement
             }
         }
 
-        public async Task<PagingApiResponse<FlowerBouquetResponse>> SearchFlowerBouquet(SearchBaseReq req)
+        public async Task<PagingApiResponse<FlowerBouquetResponse>> SearchFlowerBouquet(SearchFlowerRequest req)
         {
             try
             {
                 var result = await _uOW.Resolve<FlowerBouquet, IFlowerBouquetRepository>()
-                                .SearchAsync<FlowerBouquetResponse>(req.KeySearch, req.PagingQuery, req.OrderBy);
+                                .SearchAsync<FlowerBouquetResponse>(req);
 
                 return Success(result);
             }

@@ -7,6 +7,8 @@ namespace WebApp
 	{
 		public static void AddSerivce(this IServiceCollection service)
 		{
+			service.AddHttpClient();
+
 			service.AddScoped(typeof(HandleAccessTokenMiddleware));
 
 			service.AddScoped<IApiHelper, ApiHelper>();
